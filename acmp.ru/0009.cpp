@@ -64,7 +64,6 @@ int main() {
     for (int i = 0; i<data.size(); i++) {
         if (data[i] < data[min]) {
             min = i;
-
         }
     }
 
