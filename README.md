@@ -28,6 +28,8 @@
 
 <a href="CF-R(1129)"><img src="assets/en/contests/CF-R(1129)/card.svg" alt="Codeforces Round 1129 (Div. 2), October 24, 2026" width="100%"></a>
 
+<a href="2026-icpc-regional"><img src="assets/en/contests/2026-icpc-regional/card.svg" alt="ICPC NERC Kyrgyzstan Regional, November 1, 2026" width="100%"></a>
+
 <a href="2026-icpc-qual"><img src="assets/en/contests/2026-icpc-qual/card.svg" alt="ICPC NERC Kyrgyzstan Qualification, October 3, 2026" width="100%"></a>
 
 <br>

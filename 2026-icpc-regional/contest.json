@@ -1,0 +1,17 @@
+{
+  "series": "ICPC NERC",
+  "title": "Kyrgyzstan Regional",
+  "date": "1 ноября 2026",
+  "year": 2026,
+  "problems": [
+    {"letter": "A", "name": "Гипотеза n²+1"},
+    {"letter": "B", "name": "Пицца после контеста"},
+    {"letter": "C", "name": "Числовой КОРНИЩЕ"},
+    {"letter": "D", "name": "Бесконечный август"},
+    {"letter": "E", "name": "Необычные дроби"},
+    {"letter": "F", "name": "Круговой сапёр"},
+    {"letter": "G", "name": "Are ya winning, son?"},
+    {"letter": "H", "name": "Вращайте барабан!"},
+    {"letter": "I", "name": "Кривая походка Гильберта"}
+  ]
+}
