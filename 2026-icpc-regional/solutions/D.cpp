@@ -28,5 +28,9 @@
 using namespace std;
 
 int main() {
-    
+    int m, y;
+    cin >> m >> y;
+
+
+
 }
