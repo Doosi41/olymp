@@ -4,7 +4,7 @@
   "date": "1 ноября 2026",
   "year": 2026,
   "problems": [
-    {"letter": "A", "name": "Гипотеза n²+1", "crown": true},
+    {"letter": "A", "name": "Гипотеза n²+1"},
     {"letter": "B", "name": "Пицца после контеста", "done": true},
     {"letter": "C", "name": "Числовой КОРНИЩЕ"},
     {"letter": "D", "name": "Бесконечный август"},
