@@ -24,9 +24,9 @@ from string import Template
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(ROOT, 'assets')
-REPO_URL = 'https://github.com/a1tvv'
-OLYMP_URL = 'https://github.com/a1tvv/olymp'
-PAGES_URL = 'https://a1tvv.github.io/olymp/'  # живая сетка задач acmp: GitHub Pages из папки docs/
+REPO_URL = 'https://github.com/Doosi41'
+OLYMP_URL = 'https://github.com/Doosi41/olymp'
+PAGES_URL = 'https://Doosi41.github.io/olymp/'  # живая сетка задач acmp: GitHub Pages из папки docs/
 TIME_LIMIT = 10  # секунд на один пример: с запасом, CI-машины бывают медленными
 LANG = 'ru'
 
@@ -62,6 +62,7 @@ STATUS = {
     'soon': dict(label='Скоро', label_en='Soon', color='#98989d'),
 }
 ACMP_DIR, ACMP_TOTAL, ACMP_COLS = 'acmp.ru', 2385, 50  # всего задач на acmp.ru
+CONTEST_DIRS = ('icpc', 'CodeForces')  # папки с контестами: ICPC и раунды Codeforces
 ACMP_HEAD = re.compile(r'// acmp №(\d+) · (.+)')      # первая строка файла
 ACMP_LEVEL = re.compile(r'// Сложность: (\d+)%')      # третья строка: сложность с сайта acmp
 # решённая задача: чем сложнее, тем ярче зелёный — как в графике коммитов GitHub; (сложность до …%, цвет)
@@ -77,10 +78,16 @@ TITANIUM = ('<linearGradient id="titanium" x1="0" y1="0" x2="0" y2="1">'
 
 # ───────────────────────── проверка решений ─────────────────────────
 
+def is_port(path):
+    """Порт чужого разбора (первая строка с пометкой) - это не моё решение, в статистику не идёт."""
+    with open(path, encoding='utf-8') as f:
+        return 'по идее разбора' in f.readline()
+
+
 def find_solution(cdir, letter):
-    for ext in ('py', 'cpp'):
-        path = os.path.join(cdir, 'solutions', f'{letter}.{ext}')
-        if os.path.isfile(path) and os.path.getsize(path) > 0:
+    for folder, ext in (('solutions', 'py'), ('solutions', 'cpp'), ('solutions-cpp', 'cpp')):
+        path = os.path.join(cdir, folder, f'{letter}.{ext}')
+        if os.path.isfile(path) and os.path.getsize(path) > 0 and not is_port(path):
             return path
     return None
 
@@ -192,11 +199,13 @@ def load_acmp(workdir, committing):
 def load(committing):
     contests = []
     with tempfile.TemporaryDirectory() as workdir:
-        for path in sorted(glob.glob(os.path.join(ROOT, '*', 'contest.json')), reverse=True):
+        paths = [p for d in CONTEST_DIRS for p in glob.glob(os.path.join(ROOT, d, '*', 'contest.json'))]
+        for path in sorted(paths, key=lambda p: os.path.basename(os.path.dirname(p)), reverse=True):
             cdir = os.path.dirname(path)
             with open(path) as f:
                 contest = json.load(f)
             contest['slug'] = os.path.basename(cdir)
+            contest['path'] = os.path.relpath(cdir, ROOT)
             for p in contest['problems']:
                 p['status'] = judge(cdir, p['letter'], workdir)
             contests.append(contest)
@@ -578,11 +587,16 @@ def title(name, heading, subs):
 
 def structure(contests):
     tree = [(0, 'olymp/', '')]
-    for c in contests:
-        tree += [(1, c['slug'] + '/', ''), (2, 'statements/', tr('условия задач (PDF)', 'problem statements (PDF)')),
-                 (2, 'solutions/', tr('решения: A.py, B.py, …', 'solutions: A.py, B.py, …')),
-                 (2, 'tests/', tr('примеры из условий', 'examples from the problems')),
-                 (2, 'contest.json', tr('названия, темы, разборы', 'names, topics, explanations'))]
+    for group in CONTEST_DIRS:
+        group_contests = [c for c in contests if c['path'].startswith(group + '/')]
+        if not group_contests:
+            continue
+        tree.append((1, group + '/', tr('контесты ICPC', 'ICPC contests') if group == 'icpc' else tr('раунды Codeforces', 'Codeforces rounds')))
+        for c in group_contests:
+            tree += [(2, c['slug'] + '/', ''), (3, 'statements/', tr('условия задач (PDF)', 'problem statements (PDF)')),
+                     (3, 'solutions/', tr('решения: A.py, B.py, …', 'solutions: A.py, B.py, …')),
+                     (3, 'tests/', tr('примеры из условий', 'examples from the problems')),
+                     (3, 'contest.json', tr('названия, темы, разборы', 'names, topics, explanations'))]
     tree += [(1, 'acmp.ru/', tr('задачи acmp.ru: 0001.cpp, 0002.cpp, …', 'acmp.ru problems: 0001.cpp, 0002.cpp, …')),
              (1, 'scripts/', tr('сборка README и проверка решений', 'README build and solution checks')),
              (1, 'assets/', tr('картинки для README', 'pictures for README'))]
@@ -609,8 +623,8 @@ def structure(contests):
     body = (f'<rect x="0.5" y="0.5" width="1199" height="{h - 1}" rx="31.5" fill="url(#tile)" stroke="#ffffff" stroke-opacity="0.1"/>'
             + lines + items +
             f'<line x1="48" y1="{ny - 42}" x2="1152" y2="{ny - 42}" stroke="#ffffff" stroke-opacity="0.08"/>'
-            + rich(48, ny, tr('Новый контест — новая папка `<год>-<название>/` в корне с такой же структурой',
-                              'New contest — a new folder `<year>-<name>/` in the root with the same structure'), fs=20)
+            + rich(48, ny, tr('Новый контест — новая папка `<год>-<название>/` в папке `icpc/` или `CodeForces/` с такой же структурой',
+                              'New contest — a new folder `<year>-<name>/` in the `icpc/` or `CodeForces/` folder with the same structure'), fs=20)
             + rich(48, ny + 36, tr('Статистика считается сама: при коммите решения прогоняются на примерах из условий',
                                    'Stats update by themselves: on each commit, solutions run on the examples from the problems'), fs=20))
     write_svg('structure.svg', 1200, h, tr('Структура репозитория', 'Repository structure'), defs, body)
@@ -620,7 +634,7 @@ def terminal():
     p, t, op, s, com, out = '#30d158', '#f5f5f7', '#ff375f', '#ffd60a', '#636366', '#64d2ff'
     lines = [
         [('# Python', com)],
-        [('$ ', p), ('python3 2026-icpc-qual/solutions/D.py ', t), ('<<<', op), (' 34', t)],
+        [('$ ', p), ('python3 icpc/2026-icpc-qual/solutions/D.py ', t), ('<<<', op), (' 34', t)],
         [('8 15', out)], [],
         [('# C++', com)],
         [('$ ', p), ('clang++ -std=c++17 -O2 acmp.ru/1231.cpp -o bubble', t)],
@@ -707,7 +721,7 @@ def readme(contests, acmp_solved, total):
         section_title('contests', 'contests', tr('Контесты', 'Contests'), img),
     ]
     for c in contests:
-        out.append(f'<a href="{c["slug"]}"><img src="{img}/contests/{c["slug"]}/card.svg" '
+        out.append(f'<a href="{c["path"]}"><img src="{img}/contests/{c["slug"]}/card.svg" '
                    f'alt="{esc(c["series"])} {esc(c["title"])}, {esc(date(c["date"]))}" width="100%"></a>\n')
     out += ['<br>\n<br>\n',
             section_title('acmp', 'acmp', 'acmp.ru', img),
@@ -723,14 +737,14 @@ def readme(contests, acmp_solved, total):
             f'<img src="{img}/run.svg" alt="{tr("Запуск решений в терминале", "Running solutions in the terminal")}" width="100%">',
             '',
             f'<details>\n<summary>{tr("Скопировать команды", "Copy the commands")}</summary>\n<br>\n\n```bash\n# Python\n'
-            'python3 2026-icpc-qual/solutions/D.py <<< 34\n# 8 15\n\n# C++\n'
+            'python3 icpc/2026-icpc-qual/solutions/D.py <<< 34\n# 8 15\n\n# C++\n'
             'clang++ -std=c++17 -O2 acmp.ru/1231.cpp -o bubble\necho "4  4 2 3 1" | ./bubble\n# 5\n\n'
             f'{tr("# Пересобрать README вручную", "# Rebuild README by hand")}\npython3 scripts/build.py\n```\n\n</details>',
             '', '<br>', '',
             '<img src="assets/footer.svg" alt="Stay hungry. Stay foolish. — Steve Jobs, 1955–2011" width="100%">',
             '',
             f'<p align="center">\n  <sub>{tr("Сделано с ☕ и", "Made with ☕ and")} <code>-O2</code> &nbsp;·&nbsp; '
-            f'<a href="{REPO_URL}">@a1tvv</a></sub>\n</p>', '']
+            f'<a href="{REPO_URL}">@Doosi41</a></sub>\n</p>', '']
     with open(os.path.join(ROOT, 'README.ru.md' if LANG == 'ru' else 'README.md'), 'w') as f:
         f.write('\n'.join(out))
 
