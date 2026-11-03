@@ -12,7 +12,7 @@
 
 <br>
 
-<img src="assets/en/stats.svg" alt="Problems solved: 32" width="100%">
+<img src="assets/en/stats.svg" alt="Problems solved: 33" width="100%">
 
 <br>
 <br>
