@@ -12,7 +12,7 @@
 
 <br>
 
-<img src="assets/stats.svg" alt="Решено задач: 34" width="100%">
+<img src="assets/stats.svg" alt="Решено задач: 32" width="100%">
 
 <br>
 <br>
@@ -23,10 +23,6 @@
 
 <a name="contests"></a>
 <img src="assets/titles/contests.svg" alt="Контесты" width="100%">
-
-<a href="CodeForces/CF-R(1130)"><img src="assets/contests/CF-R(1130)/card.svg" alt="Codeforces Round 1130 (Div. 2), 26 октября 2026" width="100%"></a>
-
-<a href="CodeForces/CF-R(1129)"><img src="assets/contests/CF-R(1129)/card.svg" alt="Codeforces Round 1129 (Div. 2), 24 октября 2026" width="100%"></a>
 
 <a href="icpc/2026-icpc-regional"><img src="assets/contests/2026-icpc-regional/card.svg" alt="ICPC NERC Kyrgyzstan Regional, 1 ноября 2026" width="100%"></a>
 
