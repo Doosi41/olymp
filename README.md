@@ -24,13 +24,13 @@
 <a name="contests"></a>
 <img src="assets/en/titles/contests.svg" alt="Contests" width="100%">
 
-<a href="CF-R(1130)"><img src="assets/en/contests/CF-R(1130)/card.svg" alt="Codeforces Round 1130 (Div. 2), October 26, 2026" width="100%"></a>
+<a href="CodeForces/CF-R(1130)"><img src="assets/en/contests/CF-R(1130)/card.svg" alt="Codeforces Round 1130 (Div. 2), October 26, 2026" width="100%"></a>
 
-<a href="CF-R(1129)"><img src="assets/en/contests/CF-R(1129)/card.svg" alt="Codeforces Round 1129 (Div. 2), October 24, 2026" width="100%"></a>
+<a href="CodeForces/CF-R(1129)"><img src="assets/en/contests/CF-R(1129)/card.svg" alt="Codeforces Round 1129 (Div. 2), October 24, 2026" width="100%"></a>
 
-<a href="2026-icpc-regional"><img src="assets/en/contests/2026-icpc-regional/card.svg" alt="ICPC NERC Kyrgyzstan Regional, November 1, 2026" width="100%"></a>
+<a href="icpc/2026-icpc-regional"><img src="assets/en/contests/2026-icpc-regional/card.svg" alt="ICPC NERC Kyrgyzstan Regional, November 1, 2026" width="100%"></a>
 
-<a href="2026-icpc-qual"><img src="assets/en/contests/2026-icpc-qual/card.svg" alt="ICPC NERC Kyrgyzstan Qualification, October 3, 2026" width="100%"></a>
+<a href="icpc/2026-icpc-qual"><img src="assets/en/contests/2026-icpc-qual/card.svg" alt="ICPC NERC Kyrgyzstan Qualification, October 3, 2026" width="100%"></a>
 
 <br>
 <br>
@@ -38,7 +38,7 @@
 <a name="acmp"></a>
 <img src="assets/en/titles/acmp.svg" alt="acmp.ru" width="100%">
 
-<a href="https://a1tvv.github.io/olymp/"><img src="assets/en/acmp.svg" alt="acmp.ru problems: 28 of 2385 solved" width="100%"></a>
+<a href="https://Doosi41.github.io/olymp/"><img src="assets/en/acmp.svg" alt="acmp.ru problems: 28 of 2385 solved" width="100%"></a>
 
 <br>
 <br>
@@ -62,7 +62,7 @@
 
 ```bash
 # Python
-python3 2026-icpc-qual/solutions/D.py <<< 34
+python3 icpc/2026-icpc-qual/solutions/D.py <<< 34
 # 8 15
 
 # C++
@@ -81,5 +81,5 @@ python3 scripts/build.py
 <img src="assets/footer.svg" alt="Stay hungry. Stay foolish. — Steve Jobs, 1955–2011" width="100%">
 
 <p align="center">
-  <sub>Made with ☕ and <code>-O2</code> &nbsp;·&nbsp; <a href="https://github.com/a1tvv">@a1tvv</a></sub>
+  <sub>Made with ☕ and <code>-O2</code> &nbsp;·&nbsp; <a href="https://github.com/Doosi41">@Doosi41</a></sub>
 </p>
