@@ -1,32 +1,18 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
-int main() {
+int main () {
     long long n, k;
     cin >> n >> k;
 
-    vector<long long> result;
-    long long m = n;
-    while (m > 0 && k >= m - 1) {
-        result.push_back(m);
-        k -= m - 1;
-        m--;
-    }
-    if (m > 0) {
-        result.push_back(k + 1);
-        for (long long x = 1; x <= m; x++) {
-            if (x != k + 1) {
-                result.push_back(x);
-            }
+    cout << k+1 << " ";
+    for (int i = 0; i < n; i++) {
+        if (i+1 != k+1){
+            cout << i+1 << " ";
         }
     }
 
-    for (int i = 0; i < result.size(); i++) {
-        cout << result[i] << " ";
-    }
-    cout << endl;
+    // не полное решение
 
-    return 0;
 }
