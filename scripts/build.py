@@ -207,7 +207,7 @@ def load(committing):
             contest['slug'] = os.path.basename(cdir)
             contest['path'] = os.path.relpath(cdir, ROOT)
             for p in contest['problems']:
-                p['status'] = judge(cdir, p['letter'], workdir)
+                p['status'] = 'done' if p.get('done') else judge(cdir, p['letter'], workdir)   # "done": true в contest.json - решена вне папки solutions
             contests.append(contest)
         acmp = load_acmp(workdir, committing)
     return contests, acmp
@@ -393,12 +393,14 @@ def contest_card(c):
         letter_color = '#f5f5f7' if done else '#98989d'
         dot = (f'<circle cx="{x + w - 28}" cy="224" r="9" fill="{st["color"]}"/>' if done else
                f'<circle cx="{x + w - 28}" cy="224" r="9" fill="none" stroke="#98989d" stroke-width="2"/>')
+        crown = (f'<g transform="translate({x + 22:.1f} 166)"><path d="M0 28V8l9 9 9-15 9 15 9-9v20z" fill="#ffd60a" stroke="#ff9f0a" '
+                 f'stroke-width="2" stroke-linejoin="round"/><rect x="0" y="23" width="36" height="5" fill="#ff9f0a"/></g>' if p.get('crown') else '')
         appear = (f'<animate attributeName="opacity" values="0;0;1" keyTimes="0;{i / (i + 5):.2f};1" '
                   f'dur="{0.5 + 0.1 * i:.1f}s" fill="freeze"/>')
         chips += (f'<g>{appear}<rect x="{x:.1f}" y="196" width="{w:.1f}" height="126" rx="24" fill="{fill}" '
                   f'fill-opacity="{0.1 if done else 0.04}" stroke="{fill}" stroke-opacity="{0.45 if done else 0.12}"/>'
                   f'<text x="{x + 28:.1f}" y="262" font-size="44" font-weight="700" fill="{letter_color}">{p["letter"]}</text>{dot}'
-                  f'<text x="{x + 28:.1f}" y="300" font-size="{label_fs}" fill="{st["color"]}">{status_label(p["status"])}</text></g>')
+                  f'<text x="{x + 28:.1f}" y="300" font-size="{label_fs}" fill="{st["color"]}">{status_label(p["status"])}</text>{crown}</g>')
     defs = TILE + TITANIUM + f'<linearGradient id="ai" x1="0" y1="0" x2="1" y2="0">{AI_STOPS}</linearGradient>'
     body = (
         '<rect x="0.5" y="0.5" width="1199" height="369" rx="31.5" fill="url(#tile)" stroke="#ffffff" stroke-opacity="0.1"/>'
@@ -406,7 +408,8 @@ def contest_card(c):
         f'<text x="46" y="146" font-size="54" font-weight="700" letter-spacing="-1.5" fill="url(#titanium)">{esc(c["title"])}</text>'
         f'{chips}</g>'
     )
-    summary = '; '.join(f'{p["letter"]} — {status_label(p["status"]).lower()}' for p in probs)
+    summary = '; '.join(f'{p["letter"]} — {status_label(p["status"]).lower()}'
+                        + (tr(' (на контесте)', ' (during the contest)') if p.get('crown') else '') for p in probs)
     write_svg(f'contests/{c["slug"]}/card.svg', 1200, 370, f'{c["series"]} {c["title"]}, {date(c["date"])}: {summary}', defs, body)
 
 
