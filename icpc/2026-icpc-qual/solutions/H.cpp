@@ -16,6 +16,8 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -27,20 +29,24 @@ int main() {
     cin >> l;
 
     vector<int> massive;
+    vector<int> answer;
 
-    for (int i=0; i<l; i++) {
+    for (int i = 0; i < l; i++) {
         cin >> n;
         massive.push_back(n);
+        sort(massive.begin(), massive.end());   // massive теперь отсортированный префикс
+
+        int k = massive.size();                 // длина префикса
+
+        if (k % 2 == 0) {
+            answer.push_back(massive[k / 2 - 1] + massive[k / 2]);            // сумма двух средних: индексы k/2 - 1 и k/2
+        } else {
+            answer.push_back(massive[k / 2] * 2);            // удвоенный средний: индекс k/2
+        }
     }
 
-    // if (massive.size() % 2 == 0) {
-
-    // } else {
-
-    // }
-
-    for(int i=0; i<massive.size(); i++) {
-        cout << massive[0];
+    for (int i=0; i<answer.size(); i++) {
+        cout << answer[i] << " ";
     }
 
 }
