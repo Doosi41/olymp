@@ -1,18 +1,30 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
+
 
 int main () {
     long long n, k;
     cin >> n >> k;
 
-    cout << k+1 << " ";
+    vector<int> a;
+    
     for (int i = 0; i < n; i++) {
-        if (i+1 != k+1){
-            cout << i+1 << " ";
+        // Добавляем элемент в массив
+        a.push_back(i);
+        int j = i;
+
+        // Сортируем массив с помощью вставки
+        while ((j > 1) && (a[j] < a[j - 1])) {
+            swap(a[j], a[j - 1]);
+            j--;
         }
     }
 
-    // не полное решение
-
+    // Выводим результат
+    for (int i = 0; i < a.size(); i++) {
+        cout << a[i] << " ";
+    }
+    
 }

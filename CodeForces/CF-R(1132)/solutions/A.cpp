@@ -1,18 +1,16 @@
-// Codeforces Round 1132 (Div. 2) · A
-
 #include <iostream>
-#include <vector>
-#include <algorithm>
 
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
 
+    int n;
     int t;
     cin >> t;
-    while (t--) {
-        
+
+    for (int i = 0; i < t; i++) {
+        cin >> n;
+        cout << n*n/4 << endl;
     }
+    
 }
