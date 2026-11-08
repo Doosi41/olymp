@@ -4,7 +4,7 @@
   "date": "6 ноября 2026",
   "year": 2026,
   "problems": [
-    {"letter": "A", "name": ""},
+    {"letter": "A", "name": "", "done": true},
     {"letter": "B", "name": ""},
     {"letter": "C", "name": ""},
     {"letter": "D", "name": ""},
