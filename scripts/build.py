@@ -61,7 +61,7 @@ STATUS = {
     'draft': dict(label='Черновик', label_en='Draft', color='#ff9f0a'),
     'soon': dict(label='Скоро', label_en='Soon', color='#98989d'),
 }
-ACMP_DIR, ACMP_TOTAL, ACMP_COLS = 'acmp.ru', 2385, 50  # всего задач на acmp.ru
+ACMP_DIR, ACMP_TOTAL, ACMP_COLS = 'acmp.ru', 1000, 50  # решаем первую тысячу задач acmp.ru
 CONTEST_DIRS = ('icpc', 'CodeForces')  # папки с контестами: ICPC и раунды Codeforces
 ACMP_HEAD = re.compile(r'// acmp №(\d+) · (.+)')      # первая строка файла
 ACMP_LEVEL = re.compile(r'// Сложность: (\d+)%')      # третья строка: сложность с сайта acmp
