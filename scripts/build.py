@@ -62,7 +62,7 @@ STATUS = {
     'soon': dict(label='Скоро', label_en='Soon', color='#98989d'),
 }
 ACMP_DIR, ACMP_TOTAL, ACMP_COLS = 'acmp.ru', 2385, 50  # всего задач на acmp.ru
-CONTEST_DIRS = ('icpc',)  # папки с контестами; CodeForces/ в README не показываем
+CONTEST_DIRS = ('icpc', 'CodeForces')  # папки с контестами: ICPC и раунды Codeforces
 ACMP_HEAD = re.compile(r'// acmp №(\d+) · (.+)')      # первая строка файла
 ACMP_LEVEL = re.compile(r'// Сложность: (\d+)%')      # третья строка: сложность с сайта acmp
 # решённая задача: чем сложнее, тем ярче зелёный — как в графике коммитов GitHub; (сложность до …%, цвет)
@@ -626,8 +626,8 @@ def structure(contests):
     body = (f'<rect x="0.5" y="0.5" width="1199" height="{h - 1}" rx="31.5" fill="url(#tile)" stroke="#ffffff" stroke-opacity="0.1"/>'
             + lines + items +
             f'<line x1="48" y1="{ny - 42}" x2="1152" y2="{ny - 42}" stroke="#ffffff" stroke-opacity="0.08"/>'
-            + rich(48, ny, tr('Новый контест — новая папка `<год>-<название>/` в папке `icpc/` с такой же структурой',
-                              'New contest — a new folder `<year>-<name>/` in the `icpc/` folder with the same structure'), fs=20)
+            + rich(48, ny, tr('Новый контест — новая папка `<год>-<название>/` в папке `icpc/` или `CodeForces/` с такой же структурой',
+                              'New contest — a new folder `<year>-<name>/` in the `icpc/` or `CodeForces/` folder with the same structure'), fs=20)
             + rich(48, ny + 36, tr('Статистика считается сама: при коммите решения прогоняются на примерах из условий',
                                    'Stats update by themselves: on each commit, solutions run on the examples from the problems'), fs=20))
     write_svg('structure.svg', 1200, h, tr('Структура репозитория', 'Repository structure'), defs, body)

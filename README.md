@@ -12,7 +12,7 @@
 
 <br>
 
-<img src="assets/en/stats.svg" alt="Problems solved: 35" width="100%">
+<img src="assets/en/stats.svg" alt="Problems solved: 36" width="100%">
 
 <br>
 <br>
@@ -23,6 +23,12 @@
 
 <a name="contests"></a>
 <img src="assets/en/titles/contests.svg" alt="Contests" width="100%">
+
+<a href="CodeForces/CF-R(1132)"><img src="assets/en/contests/CF-R(1132)/card.svg" alt="Codeforces Round 1132 (Div. 2), November 6, 2026" width="100%"></a>
+
+<a href="CodeForces/CF-R(1130)"><img src="assets/en/contests/CF-R(1130)/card.svg" alt="Codeforces Round 1130 (Div. 2), October 26, 2026" width="100%"></a>
+
+<a href="CodeForces/CF-R(1129)"><img src="assets/en/contests/CF-R(1129)/card.svg" alt="Codeforces Round 1129 (Div. 2), October 24, 2026" width="100%"></a>
 
 <a href="icpc/2026-icpc-regional"><img src="assets/en/contests/2026-icpc-regional/card.svg" alt="ICPC NERC Kyrgyzstan Regional, November 1, 2026" width="100%"></a>
 
