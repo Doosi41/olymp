@@ -29,11 +29,22 @@ int main() {
     int n;
     cin >> n;
 
+    int five = 0;
+    int three = 0;
+    int one = 0;
+
     vector<int> a(n);
     for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
 
-    cout << 1 << endl;
+    int time = 0, count = 0, penalty = 0;
+    for (int i = 0; i < n; i++) {
+        if (time + a[i] > 300) break;
+        time += a[i];
+        count++;
+        penalty += time;
+    }
+    cout << count << " " << penalty;
 
 }

@@ -25,6 +25,7 @@ int main() {
     while (x%2==0) {
         x = x/2;
     }
+
     if (x == 1) {
         cout << "YES";
     }
