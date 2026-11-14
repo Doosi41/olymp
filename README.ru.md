@@ -12,7 +12,7 @@
 
 <br>
 
-<img src="assets/stats.svg" alt="Решено задач: 34" width="100%">
+<img src="assets/stats.svg" alt="Решено задач: 35" width="100%">
 
 <br>
 <br>
@@ -23,6 +23,8 @@
 
 <a name="contests"></a>
 <img src="assets/titles/contests.svg" alt="Контесты" width="100%">
+
+<a href="CodeForces/CF-R(1134)"><img src="assets/contests/CF-R(1134)/card.svg" alt="Codeforces Round 1134 (Div. 4), 14 ноября 2026" width="100%"></a>
 
 <a href="CodeForces/CF-R(1132)"><img src="assets/contests/CF-R(1132)/card.svg" alt="Codeforces Round 1132 (Div. 2), 6 ноября 2026" width="100%"></a>
 
