@@ -80,7 +80,7 @@ python3 scripts/build.py
 
 <br>
 
-<img src="assets/footer.svg" alt="Stay hungry. Stay foolish. — Steve Jobs, 1955–2011" width="100%">
+<img src="assets/footer.svg" alt="Talk is cheap. Show me the code. — Linus Torvalds" width="100%">
 
 <p align="center">
   <sub>Made with ☕ and <code>-O2</code> &nbsp;·&nbsp; <a href="https://github.com/Doosi41">@Doosi41</a></sub>

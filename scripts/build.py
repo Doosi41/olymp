@@ -671,10 +671,10 @@ def footer():
     body = ('<g clip-path="url(#card)"><rect width="1200" height="380" fill="#000000"/><rect width="1200" height="380" fill="url(#spot)"/></g>'
             '<rect x="0.5" y="0.5" width="1199" height="379" rx="31.5" fill="none" stroke="#ffffff" stroke-opacity="0.1"/>'
             '<g font-weight="700" text-anchor="middle">'
-            '<text x="600" y="160" font-size="96" letter-spacing="-3" fill="url(#titanium)">Stay hungry.</text>'
-            '<text x="600" y="262" font-size="96" letter-spacing="-3" fill="url(#ai)">Stay foolish.</text>'
-            '<text x="600" y="326" font-size="22" font-weight="600" fill="#86868b">Steve Jobs · 1955–2011</text></g>')
-    write_svg('footer.svg', 1200, 380, 'Stay hungry. Stay foolish. — Steve Jobs, 1955–2011', defs, body)
+            '<text x="600" y="160" font-size="96" letter-spacing="-3" fill="url(#titanium)">Talk is cheap.</text>'
+            '<text x="600" y="262" font-size="96" letter-spacing="-3" fill="url(#ai)">Show me the code.</text>'
+            '<text x="600" y="326" font-size="22" font-weight="600" fill="#86868b">Linus Torvalds</text></g>')
+    write_svg('footer.svg', 1200, 380, 'Talk is cheap. Show me the code. — Linus Torvalds', defs, body)
 
 
 def quote():
@@ -744,7 +744,7 @@ def readme(contests, acmp_solved, total):
             'clang++ -std=c++17 -O2 acmp.ru/1231.cpp -o bubble\necho "4  4 2 3 1" | ./bubble\n# 5\n\n'
             f'{tr("# Пересобрать README вручную", "# Rebuild README by hand")}\npython3 scripts/build.py\n```\n\n</details>',
             '', '<br>', '',
-            '<img src="assets/footer.svg" alt="Stay hungry. Stay foolish. — Steve Jobs, 1955–2011" width="100%">',
+            '<img src="assets/footer.svg" alt="Talk is cheap. Show me the code. — Linus Torvalds" width="100%">',
             '',
             f'<p align="center">\n  <sub>{tr("Сделано с ☕ и", "Made with ☕ and")} <code>-O2</code> &nbsp;·&nbsp; '
             f'<a href="{REPO_URL}">@Doosi41</a></sub>\n</p>', '']
