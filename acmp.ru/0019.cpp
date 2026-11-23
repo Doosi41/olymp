@@ -15,6 +15,7 @@
 //   D1 D3 E5 → 29
 
 #include <iostream>
+#include <cstdlib>
 #include <string>
 
 using namespace std;
@@ -23,6 +24,28 @@ int main() {
     string queen, rook, knight;
     cin >> queen >> rook >> knight;
 
-    
+    auto column = [](const string& square) { return square[0] - 'A'; };
+    auto row = [](const string& square) { return square[1] - '1'; };
+
+    const int qx = column(queen), qy = row(queen);
+    const int rx = column(rook), ry = row(rook);
+    const int kx = column(knight), ky = row(knight);
+    int attacked = 0;
+
+    for (int x = 0; x < 8; ++x) {
+        for (int y = 0; y < 8; ++y) {
+            if ((x == qx && y == qy) || (x == rx && y == ry) || (x == kx && y == ky)) {
+                continue;
+            }
+
+            const bool queen_attacks = x == qx || y == qy || abs(x - qx) == abs(y - qy);
+            const bool rook_attacks = x == rx || y == ry;
+            const int dx = abs(x - kx), dy = abs(y - ky);
+            const bool knight_attacks = dx * dy == 2;
+            attacked += queen_attacks || rook_attacks || knight_attacks;
+        }
+    }
+
+    cout << attacked << '\n';
 
 }
