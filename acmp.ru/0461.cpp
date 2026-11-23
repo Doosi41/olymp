@@ -45,10 +45,26 @@
 
 #include <iostream>
 #include <vector>
-#include <string>
+#include <algorithm>
 
 using namespace std;
 
 int main() {
-    
+    int groups;
+    cin >> groups;
+
+    vector<int> needed(groups);
+    for (int i = 0; i < groups; ++i) {
+        int size;
+        cin >> size;
+        needed[i] = size / 2 + 1;
+    }
+
+    sort(needed.begin(), needed.end());
+    int supporters = 0;
+    for (int i = 0; i < groups / 2 + 1; ++i) {
+        supporters += needed[i];
+    }
+
+    cout << supporters << '\n';
 }
