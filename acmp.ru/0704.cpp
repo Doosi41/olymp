@@ -22,6 +22,8 @@
 //   20 / 10 / 1 1 2 2 1 2 2 1 10 10 3 4 7 2 3 8 2 11 11 3 → NO
 
 #include <iostream>
+#include <algorithm>
+#include <cmath>
 #include <vector>
 
 using namespace std;
@@ -31,13 +33,27 @@ int main() {
     cin >> n;
     cin >> m;
 
-    vector<int> xs, ys; 
+    const long double pi = acosl(-1.0L);
+    vector<long double> angles;
 
     for (int i=0; i<m; i++) {
         int x,y;
         cin >> x >> y;
-        xs.push_back(x);
-        ys.push_back(y);
+        const int dx = 2 * x - n;
+        const int dy = 2 * y - n;
+        if (dx == 0 && dy == 0) {
+            cout << "NO\n";
+            return 0;
+        }
+        angles.push_back(atan2l(dy, dx));
     }
 
+    sort(angles.begin(), angles.end());
+    long double widest_gap = angles.front() + 2 * pi - angles.back();
+    for (int i = 1; i < m; ++i) {
+        widest_gap = max(widest_gap, angles[i] - angles[i - 1]);
+    }
+
+    // Все свечи должны поместиться в открытую полуплоскость с границей через центр торта.
+    cout << (widest_gap > pi + 1e-12L ? "YES\n" : "NO\n");
 }
