@@ -1,7 +1,6 @@
 // acmp №100 · Счастливые билеты
 // https://acmp.ru/index.asp?main=task&id_task=100
 // Сложность: 68%
-// Черновик
 //
 // Требуется вычислить количество N-значных счастливых билетов. Напомним, что билет
 // называется счастливым, если сумма первой половины его цифр равна сумме другой его
@@ -19,37 +18,45 @@
 //   12 → 39581170420
 
 #include <iostream>
+#include <algorithm>
 #include <string>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
-string add(string a, string b) {
-    string result = "";
-
-    int i = a.length() -1;
-    int j = b.length() -1;
-
+string add(const string& a, const string& b) {
+    string result;
     int carry = 0;
 
-    while (i>=0 or j>=0 or carry > 0) {
+    for (int i = static_cast<int>(a.size()) - 1, j = static_cast<int>(b.size()) - 1;
+         i >= 0 || j >= 0 || carry; --i, --j) {
         int sum = carry;
-
-        if (i >=0) {
-            sum += a[i] - '0';
-            i--;
-        }
-
-        if (j >=0) {
-            sum += b[j] - '0';
-            j--;
-        }
-
-        carry = sum/10;
-        result.push_back((sum%10) + '0');
+        if (i >= 0) sum += a[i] - '0';
+        if (j >= 0) sum += b[j] - '0';
+        result.push_back('0' + sum % 10);
+        carry = sum / 10;
     }
+
     reverse(result.begin(), result.end());
+    return result;
+}
+
+string multiply(const string& a, const string& b) {
+    vector<int> digits(a.size() + b.size());
+    for (int i = static_cast<int>(a.size()) - 1; i >= 0; --i) {
+        for (int j = static_cast<int>(b.size()) - 1; j >= 0; --j) {
+            digits[i + j + 1] += (a[i] - '0') * (b[j] - '0');
+        }
+    }
+    for (int i = digits.size() - 1; i > 0; --i) {
+        digits[i - 1] += digits[i] / 10;
+        digits[i] %= 10;
+    }
+
+    string result;
+    size_t first = 0;
+    while (first + 1 < digits.size() && digits[first] == 0) ++first;
+    for (; first < digits.size(); ++first) result.push_back('0' + digits[first]);
     return result;
 }
 
@@ -58,20 +65,19 @@ int main() {
     cin >> n;
 
     int h = n / 2;
-    int max_sum = 9 * n;
+    int max_sum = 9 * h;
 
-    // ways[s] — сколько способов получить сумму цифр s
-    vector<string> ways(max_sum+1, "0");
-    ways[0] = "1";    // ноль цифр: сумма 0 одним способом
+    // ways[s] — число половинок билета с суммой цифр s.
+    vector<string> ways(max_sum + 1, "0");
+    ways[0] = "1";
 
-    // добавляем цифры по одной
-    for (int digits=1; digits<=n; digits++) {
-        vector<string> next(max_sum+1, "0");
+    for (int digits = 0; digits < h; ++digits) {
+        vector<string> next(max_sum + 1, "0");
 
-        for (int s=0; s<=max_sum; s++) {
-            for (int d=0; d<=9; d++) {
-                if (s-d >= 0) {
-                    next[s] = add(next[s], ways[s-d]);
+        for (int sum = 0; sum <= max_sum; ++sum) {
+            for (int digit = 0; digit <= 9 && sum + digit <= max_sum; ++digit) {
+                if (ways[sum] != "0") {
+                    next[sum + digit] = add(next[sum + digit], ways[sum]);
                 }
             }
         }
@@ -79,5 +85,10 @@ int main() {
         ways = next;
     }
 
-    cout << ways[9 * h];
+    string lucky = "0";
+    for (const string& count : ways) {
+        lucky = add(lucky, multiply(count, count));
+    }
+
+    cout << lucky << '\n';
 }
