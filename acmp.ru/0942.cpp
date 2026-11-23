@@ -21,6 +21,7 @@
 //   4 / 10 20 30 40 → 1
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -29,22 +30,46 @@ int main() {
     int n;
     cin >> n;
 
-    int five = 0;
-    int three = 0;
-    int one = 0;
-
     vector<int> a(n);
     for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
 
-    int time = 0, count = 0, penalty = 0;
-    for (int i = 0; i < n; i++) {
-        if (time + a[i] > 300) break;
-        time += a[i];
-        count++;
-        penalty += time;
+    auto result = [](const vector<int>& order) {
+        int time = 0, solved = 0, penalty = 0;
+        for (int task : order) {
+            if (time + task > 300) break;
+            time += task;
+            ++solved;
+            penalty += time;
+        }
+        return pair<int, int>{solved, penalty};
+    };
+
+    vector<int> five_order = a;
+    vector<int> three_order = a;
+    reverse(three_order.begin(), three_order.end());
+    vector<int> one_order = a;
+    sort(one_order.begin(), one_order.end());
+
+    const auto five = result(five_order);
+    const auto three = result(three_order);
+    const auto one = result(one_order);
+    const vector<pair<int, pair<int, int>>> students = {{5, five}, {3, three}, {1, one}};
+
+    int winner = 5;
+    pair<int, int> best = five;
+    for (const auto& student : students) {
+        const int course = student.first;
+        const auto& current = student.second;
+        if (current.first > best.first ||
+            (current.first == best.first && (current.second < best.second ||
+             (current.second == best.second && course < winner)))) {
+            winner = course;
+            best = current;
+        }
     }
-    cout << count << " " << penalty;
+
+    cout << winner << '\n';
 
 }
