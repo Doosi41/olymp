@@ -53,15 +53,10 @@ int main() {
     string s;
     cin >> s;
 
-    for (int i=0; i<s.size(); i++) {
-        char c = s[i];
-    }
-
     bool has_underscore = false;
     bool has_upper = false;
 
-    for (int i=0; i<s.size(); i++) {
-        char c = s[i];
+    for (char c : s) {
 
         if (c == '_') {
             has_underscore = true;
@@ -71,6 +66,38 @@ int main() {
         }
     }
 
-    cout << has_underscore << " " << has_upper;
+    const bool bad_cpp = s.front() == '_' || s.back() == '_';
+    bool consecutive_underscores = false;
+    for (int i = 1; i < static_cast<int>(s.size()); ++i) {
+        consecutive_underscores = consecutive_underscores || (s[i] == '_' && s[i - 1] == '_');
+    }
+
+    if (s.front() < 'a' || s.front() > 'z' || (has_underscore && has_upper) ||
+        (has_underscore && (bad_cpp || consecutive_underscores))) {
+        cout << "Error!\n";
+        return 0;
+    }
+
+    string answer;
+    if (has_underscore) {  // C++ → Java
+        for (int i = 0; i < static_cast<int>(s.size()); ++i) {
+            if (s[i] == '_') {
+                answer.push_back(s[++i] - 'a' + 'A');
+            } else {
+                answer.push_back(s[i]);
+            }
+        }
+    } else {  // Java → C++ (or a name valid in both notations)
+        for (char c : s) {
+            if (c >= 'A' && c <= 'Z') {
+                answer.push_back('_');
+                answer.push_back(c - 'A' + 'a');
+            } else {
+                answer.push_back(c);
+            }
+        }
+    }
+
+    cout << answer << '\n';
 
 }
