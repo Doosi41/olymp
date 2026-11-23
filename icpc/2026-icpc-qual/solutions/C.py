@@ -1,25 +1,18 @@
-A = int(input())
-B = int(input())
+"""ICPC NERC Kyrgyzstan Qualification 2026 · C · Сизифов труд."""
 
-D = 0
-D_max = 0
+import sys
 
-if A <= B:
-    D_max = A
 
-if A > B:
-    test = True
-    i = 1
-    j = B
-    while test:
-        D += A
-        B *= i
-        if D_max < D:
-            D_max = D
-        if D < D_max:
-            test = False
-        D -= B
-        i += 1
-        B = j
+def solve() -> None:
+    data = list(map(int, sys.stdin.buffer.read().split()))
+    answers = []
+    for a, b in zip(data[1::2], data[2::2]):
+        # f(k) = k·A − B·k(k−1)/2. Its increments are A − k·B,
+        # so the maximum is attained at k = ceil(A / B).
+        k = (a + b - 1) // b
+        answers.append(str(k * a - b * k * (k - 1) // 2))
+    print('\n'.join(answers))
 
-print(D_max)
+
+if __name__ == '__main__':
+    solve()
