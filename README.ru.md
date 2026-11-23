@@ -12,7 +12,7 @@
 
 <br>
 
-<img src="assets/stats.svg" alt="Решено задач: 50" width="100%">
+<img src="assets/stats.svg" alt="Решено задач: 51" width="100%">
 
 <br>
 <br>
