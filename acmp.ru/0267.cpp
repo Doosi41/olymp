@@ -28,26 +28,24 @@ int main() {
     long long n, x, y;
     cin >> n >> x >> y;
 
-    long long first;
-    if (x > y) {
-        first = y;
-    } else {
-        first = x;
+    const long long first = min(x, y);
+    if (n == 1) {
+        cout << first << '\n';
+        return 0;
     }
 
     long long lo = 0;
-    long long hi = 2000000000;
+    long long hi = (n - 1) * max(x, y);
 
     while (lo < hi) {
         long long mid = (lo + hi) / 2;
 
         if (mid / x + mid / y >= n-1) {
-            hi = ;
+            hi = mid;
         } else {
-            lo = ;
+            lo = mid + 1;
         }
     }
 
-    cout << first + ;
-    
+    cout << first + lo << '\n';
 }
