@@ -65,8 +65,6 @@ ACMP_DIR, ACMP_TOTAL, ACMP_COLS = 'acmp.ru', 1000, 50  # решаем перву
 CONTEST_DIRS = ('icpc', 'CodeForces')  # папки с контестами: ICPC и раунды Codeforces
 ACMP_HEAD = re.compile(r'// acmp №(\d+) · (.+)')      # первая строка файла
 ACMP_LEVEL = re.compile(r'// Сложность: (\d+)%')      # третья строка: сложность с сайта acmp
-# решённая задача: чем сложнее, тем ярче зелёный — как в графике коммитов GitHub; (сложность до …%, цвет)
-ACMP_GREENS = ((10, '#1a5c2e'), (20, '#1f8a3d'), (35, '#2cb84f'), (101, '#4be36b'))
 ACMP_EXAMPLE = re.compile(r'//\s{2,}(.+?)\s+→\s+(.+)')  # «//   2 3 → 5» в шапке; « / » — новая строка
 AI_STOPS = ('<stop offset="0" stop-color="#ff9f0a"/><stop offset="0.35" stop-color="#ff375f"/>'
             '<stop offset="0.7" stop-color="#bf5af2"/><stop offset="1" stop-color="#0a84ff"/>')
@@ -414,14 +412,12 @@ def contest_card(c):
 
 
 def cell_color(p):
-    """Цвет клетки задачи: решённая — зелёный по сложности (нет сложности — средний), черновик — оранжевый."""
-    if p['status'] != 'done':
-        return STATUS[p['status']]['color']
-    return next(c for limit, c in ACMP_GREENS if (p['level'] or 20) < limit)
+    """Все клетки задачника отображаются единым зелёным цветом."""
+    return STATUS['done']['color']
 
 
 def acmp_card(problems):
-    """Сетка: по клетке на каждую задачу acmp, решённые горят зелёным.
+    """Сетка: по зелёной клетке на каждую задачу acmp.
     В правом верхнем углу — счётчик решённых."""
     solved = [p for p in problems if p['status'] == 'done']
     pitch = 1100 / ACMP_COLS  # сетка во всю ширину карточки
@@ -444,7 +440,7 @@ def acmp_card(problems):
                f'acmp.ru problems: {len(solved)} of {ACMP_TOTAL} solved')
     defs = (TILE + TITANIUM + f'<linearGradient id="ai" x1="0" y1="0" x2="1" y2="0">{AI_STOPS}</linearGradient>'
             f'<pattern id="cell" x="{x0}" y="{y0}" width="{pitch}" height="{pitch}" patternUnits="userSpaceOnUse">'
-            f'<rect width="{cell}" height="{cell}" rx="6" fill="#ffffff" fill-opacity="0.06"/></pattern>')
+            f'<rect width="{cell}" height="{cell}" rx="6" fill="{STATUS["done"]["color"]}"/></pattern>')
     body = (
         f'<rect x="0.5" y="0.5" width="1199" height="{h - 1}" rx="31.5" fill="url(#tile)" stroke="#ffffff" stroke-opacity="0.1"/>'
         f'<g font-weight="600"><text x="48" y="84" font-size="22" fill="url(#ai)">acmp.ru · {no}1 — {no}{ACMP_TOTAL}</text>'
@@ -489,7 +485,7 @@ h1 { margin: 40px 0 6px; font-size: 54px; letter-spacing: -1.2px; line-height: 1
 .count b { font-size: 54px; font-weight: 700; letter-spacing: -1.5px; color: transparent;
            background: linear-gradient(90deg, #ff9f0a, #ff375f 35%, #bf5af2 70%, #0a84ff); -webkit-background-clip: text; background-clip: text; }
 .grid { display: grid; grid-template-columns: repeat($cols, 1fr); gap: 4px; margin-top: 34px; }
-.grid > * { display: block; aspect-ratio: 1; border-radius: 24%; background: rgba(255,255,255,.06); transition: transform .12s; }
+.grid > * { display: block; aspect-ratio: 1; border-radius: 24%; background: #30d158; transition: transform .12s; }
 .grid > *:hover { transform: scale(1.4); position: relative; z-index: 1; box-shadow: 0 0 0 2px #f5f5f7; }
 .foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 28px; color: #86868b; font-size: 18px; }
 .foot b { color: #f5f5f7; }
@@ -778,8 +774,8 @@ def build(lang, contests, acmp):
     title('acmp', 'acmp.ru',
           [tr(f'Все задачи acmp.ru по порядку, от №1 до №{ACMP_TOTAL}. Нажми на карточку — откроются решения.',
               f'All acmp.ru problems in order, from #1 to #{ACMP_TOTAL}. Click the card to open the solutions.'),
-           tr('Каждая клетка — задача. Зелёная — решена: чем ярче, тем сложнее задача.',
-              'Each cell is a problem. Green means solved: the brighter, the harder the problem.')])
+           tr('Каждая клетка — задача. Все клетки отмечены зелёным.',
+              'Each cell is a problem. Every cell is green.')])
     title('structure', tr('Структура', 'Structure'), [tr('Всё на своих местах.', 'Everything in its place.')])
     title('run', tr('Запуск', 'Run'), [tr('Скопировал. Запустил. Готово.', 'Copy. Run. Done.')])
     structure(contests)
