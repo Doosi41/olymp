@@ -30,6 +30,15 @@
 using namespace std;
 
 int main() {
-    int k;
-    
+    int n;
+    string marks;
+    cin >> n >> marks;
+
+    const int k = marks.size();
+    long long result = 1;
+    for (int value = n; value > 0; value -= k) {
+        result *= value;
+    }
+
+    cout << result << '\n';
 }
