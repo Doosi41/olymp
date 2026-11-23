@@ -4,27 +4,34 @@
 using namespace std;
 
 
-int main () {
+int main() {
     long long n, k;
     cin >> n >> k;
 
-    vector<int> a;
-    
-    for (int i = 0; i < n; i++) {
-        // Добавляем элемент в массив
-        a.push_back(i);
-        int j = i;
+    vector<int> answer;
+    int low = 1, high = n;
 
-        // Сортируем массив с помощью вставки
-        while ((j > 1) && (a[j] < a[j - 1])) {
-            swap(a[j], a[j - 1]);
-            j--;
+    // Taking the largest remaining value first creates exactly high - low inversions.
+    while (low < high && k >= high - low) {
+        answer.push_back(high--);
+        k -= high - low + 1;
+    }
+
+    if (k > 0) {
+        const int middle = low + k;
+        answer.push_back(middle);
+        for (int value = low; value < middle; ++value) {
+            answer.push_back(value);
         }
+        low = middle + 1;
     }
 
-    // Выводим результат
-    for (int i = 0; i < a.size(); i++) {
-        cout << a[i] << " ";
+    for (int value = low; value <= high; ++value) {
+        answer.push_back(value);
     }
-    
+
+    for (int value : answer) {
+        cout << value << ' ';
+    }
+    cout << '\n';
 }
