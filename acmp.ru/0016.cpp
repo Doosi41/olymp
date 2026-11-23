@@ -25,13 +25,15 @@ int main() {
     int n;
     cin >> n;
 
-    int count_l = 0;
-    vector<int> ways(n+1, 0);
+    vector<long long> ways(n + 1, 0);
     ways[0] = 1;
 
-    for (int i=0; i<n; i++) {
-        for (int j=0; j<n; j--) {
-            
+    // Каждая ступень имеет уникальную высоту, поэтому это разбиения n на разные слагаемые.
+    for (int height = 1; height <= n; ++height) {
+        for (int sum = n; sum >= height; --sum) {
+            ways[sum] += ways[sum - height];
         }
     }
+
+    cout << ways[n] << '\n';
 }
