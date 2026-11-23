@@ -23,5 +23,17 @@
 using namespace std;
 
 int main() {
-    
+    int first = 0, second = 0;
+    for (int quarter = 0; quarter < 4; ++quarter) {
+        int a, b;
+        cin >> a >> b;
+        first += a;
+        second += b;
+    }
+
+    if (first == second) {
+        cout << "DRAW\n";
+    } else {
+        cout << (first > second ? 1 : 2) << '\n';
+    }
 }
