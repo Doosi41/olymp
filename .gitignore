@@ -18,6 +18,7 @@ __pycache__/
 # macOS / редактор
 .DS_Store
 .vscode/
+scripts
 
 # копия репозитория профиля (Doosi41/Doosi41), живёт тут отдельно и в olymp не коммитится
 a1tvv/
