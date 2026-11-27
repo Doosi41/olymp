@@ -12,7 +12,7 @@
 
 <br>
 
-<img src="assets/en/stats.svg" alt="Problems solved: 61" width="100%">
+<img src="assets/en/stats.svg" alt="Problems solved: 62" width="100%">
 
 <br>
 <br>
@@ -34,7 +34,7 @@
 <a name="acmp"></a>
 <img src="assets/en/titles/acmp.svg" alt="acmp.ru" width="100%">
 
-<a href="https://Doosi41.github.io/olymp/"><img src="assets/en/acmp.svg" alt="acmp.ru problems: 45 of 1000 solved" width="100%"></a>
+<a href="https://Doosi41.github.io/olymp/"><img src="assets/en/acmp.svg" alt="acmp.ru problems: 46 of 1000 solved" width="100%"></a>
 
 <br>
 <br>
