@@ -1,0 +1,10 @@
+{
+  "series": "Codeforces",
+  "title": "Round 1138 (Div. 3)",
+  "date": "27 ноября 2026",
+  "year": 2026,
+  "problems": [
+    {"letter": "A", "name": "Пикник для двоих", "done": true},
+    {"letter": "H", "name": "Пропущенный звонок", "done": true}
+  ]
+}
