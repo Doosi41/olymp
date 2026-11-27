@@ -1,6 +1,11 @@
 // acmp №18 · Факториал
 // https://acmp.ru/index.asp?main=task&id_task=18
 // Сложность: 42%
+//
+// Примеры:
+//   1 → 1
+//   3 → 6
+//   5 → 120
 
 #include <iostream>
 #include <vector>
