@@ -787,7 +787,49 @@ def build(lang, contests, acmp):
     return from_contests, from_acmp, total
 
 
+def build_from_index():
+    """Пересобирает статистику по индексу, сохраняя незастейдженные правки."""
+    generated = ('README.md', 'README.ru.md', 'assets', 'docs')
+
+    git_dir = subprocess.check_output(['git', 'rev-parse', '--absolute-git-dir'], cwd=ROOT)
+    env = dict(os.environ, GIT_DIR=os.fsdecode(git_dir.strip()))
+    if 'GIT_INDEX_FILE' in env:
+        env['GIT_INDEX_FILE'] = os.path.abspath(env['GIT_INDEX_FILE'])
+
+    def git(*args, worktree=ROOT):
+        return subprocess.check_output(['git', f'--work-tree={worktree}', *args],
+                                       cwd=worktree, env=env)
+
+    def paths(output):
+        return {os.fsdecode(path) for path in output.split(b'\0') if path}
+
+    with tempfile.TemporaryDirectory() as snapshot:
+        git('checkout-index', '--all', f'--prefix={snapshot}/')
+        subprocess.run([sys.executable, os.path.join(snapshot, 'scripts', 'build.py'), '--commit'],
+                       cwd=snapshot, env=dict(env, GIT_WORK_TREE=snapshot), check=True)
+        dirty = paths(git('diff', '--name-only', '-z', '--', *generated))
+        untracked = paths(git('ls-files', '--others', '--exclude-standard', '-z', '--', *generated))
+        changes = paths(git('diff', '--name-only', '-z', '--', *generated, worktree=snapshot))
+        changes |= paths(git('ls-files', '--others', '--exclude-standard', '-z',
+                             '--', *generated, worktree=snapshot))
+        if changes:
+            git('add', '-A', '--', *sorted(changes), worktree=snapshot)
+        for path in changes - dirty:
+            source = os.path.join(snapshot, path)
+            target = os.path.join(ROOT, path)
+            if os.path.isfile(source):
+                if not os.path.lexists(target) or path not in untracked:
+                    os.makedirs(os.path.dirname(target), exist_ok=True)
+                    shutil.copyfile(source, target)
+            elif os.path.isfile(target):
+                os.unlink(target)
+
+
 def main():
+    if '--hook' in sys.argv:
+        build_from_index()
+        return
+
     contests, acmp = load('--commit' in sys.argv)  # git-хук запускает сборку с --commit
     build('ru', contests, acmp)
     from_contests, from_acmp, total = build('en', contests, acmp)
