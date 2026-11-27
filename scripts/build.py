@@ -720,6 +720,8 @@ def readme(contests, acmp_solved, total):
         section_title('contests', 'contests', tr('Контесты', 'Contests'), img),
     ]
     for c in contests:
+        if c["series"] == "Codeforces":
+            continue
         out.append(f'<a href="{c["path"]}"><img src="{img}/contests/{c["slug"]}/card.svg" '
                    f'alt="{esc(c["series"])} {esc(c["title"])}, {esc(date(c["date"]))}" width="100%"></a>\n')
     out += ['<br>\n<br>\n',
@@ -766,7 +768,8 @@ def build(lang, contests, acmp):
     for c in contests:
         contest_card(c)
     acmp_card(acmp)
-    acmp_page(acmp)
+    if os.path.isfile(os.path.join(ROOT, 'docs', '.nojekyll')):
+        acmp_page(acmp)
     title('contests', tr('Контесты', 'Contests'),
           [tr('Нажми на карточку — откроются условия и решения.', 'Click a card to open the problems and solutions.'),
            tr('«Решена» — проходит все примеры из условия, проверяется автоматически.',
