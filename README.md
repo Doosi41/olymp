@@ -24,6 +24,12 @@
 <a name="contests"></a>
 <img src="assets/en/titles/contests.svg" alt="Contests" width="100%">
 
+<a href="CodeForces/CF-R(1134)"><img src="assets/en/contests/CF-R(1134)/card.svg" alt="Codeforces Round 1134 (Div. 4), November 14, 2026" width="100%"></a>
+
+<a href="CodeForces/CF-R(1132)"><img src="assets/en/contests/CF-R(1132)/card.svg" alt="Codeforces Round 1132 (Div. 2), November 6, 2026" width="100%"></a>
+
+<a href="CodeForces/CF-R(1129)"><img src="assets/en/contests/CF-R(1129)/card.svg" alt="Codeforces Round 1129 (Div. 2), October 24, 2026" width="100%"></a>
+
 <a href="icpc/2026-icpc-regional"><img src="assets/en/contests/2026-icpc-regional/card.svg" alt="ICPC NERC Kyrgyzstan Regional, November 1, 2026" width="100%"></a>
 
 <a href="icpc/2026-icpc-qual"><img src="assets/en/contests/2026-icpc-qual/card.svg" alt="ICPC NERC Kyrgyzstan Qualification, October 3, 2026" width="100%"></a>
