@@ -1,6 +1,11 @@
 // acmp №17 · Поле чудес
 // https://acmp.ru/index.asp?main=task&id_task=17
 // Сложность: 31%
+//
+// Примеры:
+//   13 / 5 3 1 3 5 2 5 3 1 3 5 2 5 → 6
+//   4 / 1 1 1 1 → 1
+//   4 / 1 2 3 1 → 3
 
 #include <iostream>
 #include <vector>
